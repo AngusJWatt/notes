@@ -1,0 +1,16 @@
+COMMITS
+
+Upon the initialisation of a git project, none of the directories or files will be tracked by the repository.
+In order to commit a file, it must be put into the staging area, which means that it will be committed in the next commit. Objects are placed into the
+staging area with the bash command 'git add <file-name>'. Upon the file being staged, it will be tracked by the respository, and assigned a SHA1 key and
+a blob file in the '.git/objects' directory. Files can be removed from the staging area with the bash command 'git rm --cached <file-name>'. Even though
+it has been removed from the staging area, and git treats it as an untracked file, its blob is still stored in the repository [[UNTIL WHEN?]].
+
+In order to check the status of a Git project between commits, the bash command 'git status' can be run in a work tree. This will show the location, the
+history of commits, the files yet to be commited, and the files that are not tracked by the repository.
+
+The files in the staging area are then committed with the bash command 'git commit -m "User commit message here"'. After the commit, the staging area is
+clean. The bash function 'git log' shows a log of the previous commit[[S?]]. The commit is then stored as a text file in the '.git/objects' directory,
+much like a blob. The commit file contains all of the metadata about the commit, including the SHA1 of the tree.
+
+[[COMMIT AUTHOR VS COMMITTER]] 
