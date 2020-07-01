@@ -1,9 +1,0 @@
-HTML ELEMENTS
-
-An HTML element usually consists of a start tag and an end tag, with content inserted inbetween.
-	<tag-name>Content</tag-name>
-HTML elements with no content are called empty elements. The do not gave end tage, but may be closed with a slash.
-	<tag-name/>
-HTML content may be nested inside other non-empty elements.
-	<enclosing-tag><enclosed tag/></enclosing-tag>
-HTML does not require that tags are in lowercase, but JSX does to distinguish between tags and components.
