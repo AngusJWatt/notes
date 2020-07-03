@@ -1,0 +1,148 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Oblique;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue0;\red127\green127\blue127;
+\red251\green2\blue7;\red33\green255\blue6;}
+{\*\expandedcolortbl;;\csgray\c0\c0;\cssrgb\c0\c0\c0;\cssrgb\c57046\c57047\c57046;
+\cssrgb\c100000\c14913\c0;\cssrgb\c0\c97680\c0;}
+\paperw11900\paperh16840\vieww12460\viewh10580\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb2 \ul \ulc0 Content Tracking\
+\ulnone \
+	Git tracks the contents of files by matching the files to a key which is obtained by feeding the file through SHA1. This is made apparent with the 
+\f1\i hash-object
+\f0\i0  Git command, which takes the contents of a file as its argument and returns the SHA1 key for the file.\
+	\cf3 \CocoaLigature0 myCookbook$ 
+\f1\i cat menu\
+	\cf4 Apple Pie\cf3 \CocoaLigature1 \
+	myCookBook$ git hash-object \cf4 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 	23991897e13e47ed0adb91a0082c31c82fe0cbe5\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\i0 \cf3 \
+	These SHA1 hashes are used to identify and track content.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 \ul Initialising A Git Repository\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 \ulnone \
+	In order to initialise a Git project, a repository must be created to store the contents of files. In order to do this, navigate into the file which serves as the root of the project and type the command 
+\f1\i git init
+\f0\i0 .\
+\
+	
+\f1\i myCookbook$ git init
+\f0\i0 \
+	
+\f1\i \cf4 Initialized empty Git repository in /Users/AWT02/Documents/Notes/Git/recipes/.git/
+\f0\i0 \cf3 \
+	\
+	This will create an empty Git repository \'93.git\'94, containing the default values for a Git repository. Any files which existed in the files before the initialisation of the project will still be untracked.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 \ul Staging\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 \ulnone \
+	Before committing any files to Git, they must be staged. [Staging gives the files a SHA1]. To see what files need to be staged, the user can use the command 
+\f1\i git status
+\f0\i0 .\
+\
+	
+\f1\i myCookbook$ git status\
+	\cf4 [\'85]\
+	Untracked files;\
+		\cf5 menu\
+	\cf4 [\'85]\
+\cf3 	
+\f0\i0 \
+	To stage this files, the git command 
+\f1\i git add
+\f0\i0  is used.\
+\
+	
+\f1\i myCookbook$ git add menu\
+	myCookbook$ git status\
+	\cf4 [\'85]\cf3 \
+	\cf4 Changes to be committed:\
+		\cf6 new file: menu\
+	\cf4 [\'85]\
+
+\f0\i0 \cf3 \
+	After the files have been staged, their contents will be added into \'93.git/objects\'92, under a directory named after the first two hex-values of the SHA1 of the file.\
+	\
+	
+\f1\i objects$ tree\
+	\cf4 .\
+		23\
+			991897e13e47ed0adb91a0082c31c82fe0cbe5\
+		info\
+		pack\
+
+\f0\i0 \cf3 \
+	As expected, the content of this file bears the same key as the SHA1 of the file. However, these files are still not tracked, as they have not been committed, and hence could be cleaned out by the garbage collector if they are not committed.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 \ul Committing\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 \ulnone \
+	In order to track these files, they must be committed to the repository. Git uses the command 
+\f1\i git commit
+\f0\i0  to achieve this. The commit is also normally followed by a message, preceded by a 
+\f1\i -m
+\f0\i0  and enclosed in brackets.\
+\
+	
+\f1\i myCookbook$ git commit -m \'93My first commit\'94\
+	\cf4 [\'85]\
+	1 file changed, 1 insertion(+)\
+	[\'85]\
+
+\f0\i0 \cf3 \
+	After the commit, there will be three new types of files in the objects folder. To see their contents, git uses the command 
+\f1\i git cat-file -p [first 4+ characters of file name]
+\f0\i0 . There will be the content of the original files, called \'93blobs\'94, which have the same values as they had when they were staged.\
+\
+	
+\f1\i myCookbook$ git cat-file -p 2399\
+	\cf4 Apple Pie
+\f0\i0 \cf3 \
+	\
+	The second type of file are \'93trees\'94. The trees point towards other trees and blobs, recreating the hierarchy of the original file.\
+\
+	
+\f1\i myCookbook$ git cat-file -p 47aaa2ae5893055c10ed63e1601df19d54620bbd\
+	100644 blob 23991897e13e47ed0adb91a0082c31c82fe0cbe5    menu
+\f0\i0 \
+\
+	As with the blobs, the SHA1 of a tree file is generated purely on its content, and will be the same every time so long as the file structure of the project is the same. This allows blobs and trees to be reused within Git to save space.\
+	The final file type is the commit file. The commit file points towards the root of the project, and also contains details about the committer and the authors, and also the commit message.\
+\
+
+\f1\i 	myCookbook$ git cat-file -p beefc005b014d0dc35578fad5c6e486d305629f8\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3 	\cf4 tree 47aaa2ae5893055c10ed63e1601df19d54620bbd\
+	author AuthorName <author@email.address> 1560776100 +0100\
+	committer CommitterName <committer@email.address> 1560776100 +0100\
+\
+	My first commit
+\f0\i0 \cf3 \
+	\
+	Unlike blobs and trees, the SHA1 of a commit will be different between different commits, even if the contents of the files are exactly the same. This is so that git commits can be tracked via their keys.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 	The history of Git commits can be tracked with the command 
+\f1\i git log
+\f0\i0 .\
+
+\f1\i \
+	myCookbook$ git log\
+	\cf4 commit beefc005b014d0dc35578fad5c6e486d305629f8 (HEAD -> master)\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 	Author: AuthorName <author@email.address>\
+	Date:   Thu Jan 1 00:00:00 1970 +0100\
+\
+    	My first commit\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\i0 \cf3 \
+	With this commit, the contents of the project are now tracked by the repository.}

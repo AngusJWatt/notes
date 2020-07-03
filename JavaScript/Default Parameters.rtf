@@ -1,0 +1,87 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Oblique;}
+{\colortbl;\red255\green255\blue255;\red127\green127\blue127;\red0\green0\blue0;\red127\green127\blue127;
+}
+{\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c0;\cssrgb\c57046\c57047\c57046;
+}
+\paperw11900\paperh16840\vieww12000\viewh15840\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 Default Parameters\
+\ulnone \
+	For normal JavaScript functions, the arguments of a function must match the parameters specified in the function\'92s definition.\
+\
+	
+\f1\i function multiply(a, b) \{\
+		console.log(a*b);\
+	\};\
+	multiply(3, 5);\
+	\cf2 //15\
+
+\f0\i0 \cf3 \
+	In this way, if the arguments do not match the parameters, the function will behave pathologically.\
+
+\f1\i \cf0 	multiply(5);\
+	\cf2 //NaN\
+
+\f0\i0 \cf3 \
+	To prevent this behaviour, the function definition can be provided with default parameters, which will be provided if the arguments do not match the parameters.\
+\
+\cf0 	
+\f1\i function multiply(a, b = 1) \{\
+		console.log(a*b);\
+	\};\
+	multiply(5);\
+	\cf2 //5\
+
+\f0\i0 \cf3 \
+	Default parameters can also be provided for instances when the arguments are 
+\f1\i undefined
+\f0\i0 .\
+\
+\cf0 	
+\f1\i function multiply(a =1, b=2) \{\
+		console.log(a*b);\
+	\};\
+	multiply(undefined, 5);\
+	\cf2 //5\
+\cf0 	multiply(3, undefined);\
+	\cf2 //6\
+
+\f0\i0 \cf3 \
+	If the parameter of the function is an object, the default parameters will only take effect if no object is passed as a parameter. If an object is passed as a parameter, the default parameters will not be invoked, even if the properties of the object don\'92t match those of the parameters.\
+\
+	
+\f1\i function multiply(\{a, b\} = \{a: 1, b: 2\}) \{\
+		console.log(a*b);\
+	\};\
+	multiply(\{a: 3, b: 5\});\
+	\cf4 //15\cf3 \
+	multiply();\
+	\cf4 //2\
+	\cf3 multiply(undefined);\cf4 \
+	//2\cf3 \
+	multiply(\{\});\
+	\cf4 //NaN\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 	multiply(\{a: undefined, b: 2\});\
+	\cf4 //NaN
+\f0\i0 \cf3 \
+\
+	This also applies to functions with arrays as parameters.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 \
+	
+\f1\i function multiply([a, b] = [1, 2]) \{\
+		console.log(a*b);\
+	\};\
+	multiply([3, 5]);\
+	\cf2 //15\cf3 \
+	multiply();\
+	\cf2 //2\
+	\cf3 multiply(undefined);\cf2 \
+	//2\cf3 \
+	multiply([]);\
+	\cf2 //NaN\
+\cf3 	multiply([undefined, 2]);\
+	\cf2 //NaN}

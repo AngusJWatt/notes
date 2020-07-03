@@ -1,0 +1,160 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Oblique;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue0;\red202\green202\blue202;
+\red202\green202\blue202;\red127\green127\blue127;\red67\green192\blue160;\red140\green211\blue254;\red67\green192\blue160;
+\red140\green211\blue254;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\csgray\c0\c0;\cssrgb\c83137\c83137\c83137;
+\cssrgb\c83137\c83137\c83137;\cssrgb\c57046\c57047\c57046;\cssrgb\c30588\c78824\c69020;\cssrgb\c61176\c86275\c99608;\cssrgb\c30588\c78824\c69020;
+\cssrgb\c61176\c86275\c99608;}
+\paperw11900\paperh16840\vieww16740\viewh4700\viewkind0
+\deftab720
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\ul \ulc2 \outl0\strokewidth0 \strokec4 Introduction
+\f1\i \
+
+\f0\i0 \ulnone \
+	Node offers developers a means of programming with JavaScript on the back end. To achieve this, Node acts as a wrapper for a virtual machine that executes JavaScript code (using Chrome\'92s V8 by default). This allows JavaScript files to be executed on the command line with the command 
+\f1\i node [filename]
+\f0\i0 .\
+\
+\
+\
+\ul The Global Object\ulnone \
+\
+	Whereas in browsers the global object is 
+\f1\i window
+\f0\i0 , for applications run via Node the global object is 
+\f1\i global
+\f0\i0 . \cf2 \cb3 \outl0\strokewidth0 The 
+\f1\i \cf2 console
+\f0\i0 \cf2  object still has global scope, and is used to write to the computer\'92s console. However, \cf2 \cb3 \outl0\strokewidth0 \strokec4 unlike with browsers, a variable declared with 
+\f1\i var
+\f0\i0  is not given global scope.\
+\
+	
+\f1\i //node_project/app.js\
+	var value = \'93Foo\'94;\
+	console.log(global.value);\
+	___\
+	node_project$ node app.js\
+	\cf6 undefined
+\f0\i0 \cf2 \
+\
+	The reason for this is that the scope of the variable does not extend beyond the 
+\f1\i module
+\f0\i0  object, which is the object which describes the file. This prevents variables from different, isolated files from overwriting one another.\
+\
+\ul The Module Object\ulnone \
+\
+	Each JavaScript file serves as a Node module, which is encapsulated in the 
+\f1\i module
+\f0\i0  object and its properties.\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf2 \cb3 \outl0\strokewidth0 	The 
+\f1\i \cf2 module
+\f0\i0 \cf2  object stores the filename of the module in its 
+\f1\i \cf2 filename
+\f0\i0 \cf2  property.\
+\
+	
+\f1\i \cf2 //node_project/app.js\
+	console.log(module.filename);\
+	___\
+	node_project$ node app.js\
+	\cf6 [\'85]/node_project/app.js
+\f0\i0 \cf2 \
+\cf2 \cb3 \outl0\strokewidth0 \strokec4 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf2 	The 
+\f1\i module
+\f0\i0  object stores its exports in its 
+\f1\i export
+\f0\i0  object.\
+	\
+	
+\f1\i \cf2 \cb3 \outl0\strokewidth0 //node_project/salutations.js\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf2 	const hello = function() [\
+		return \'91Hello!\'92;\
+	\};\
+	module.exports.sayHello = hello;\
+	console.log(module.exports);\
+	___\
+	node_project$ node salutations.js\
+	\cf6 \{ sayHello: [function: hello] \},
+\f0\i0 \cf2 \cb3 \outl0\strokewidth0 \strokec4 \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf2 \
+	The 
+\f1\i module
+\f0\i0  object stores its imported modules in its 
+\f1\i children
+\f0\i0  array.\
+	\
+	
+\f1\i //node_project/app.js\
+	const mySalutations = require(\'91./salutations.js\'92);\
+	console.log(module.children);\
+	___\
+	node_project$ node app.js\
+	\cf6 [\
+		Module \{\
+			id: \'91[\'85]/node_project/salutations.js\'92,\
+			[\'85]\
+		\}\
+	]
+\f0\i0 \cf2 \
+\ul \
+Filename And Dirname\
+\ulnone \
+	\
+\ul \
+Exporting And Importing\ulnone \
+\
+	To export variables between modules, the user must take advantage of the 
+\f1\i exports
+\f0\i0  array of the 
+\f1\i module
+\f0\i0  object.\
+	
+\f1\i \
+	//node_project/salutations.js\
+	const hello = function() [\
+		return \'91Hello!\'92;\
+	\};\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf2 \strokec9 	module\strokec4 .\strokec9 exports\strokec4 .\strokec10 sayHello\strokec4  = \strokec10 hello\strokec4 ;\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\i0 \cf2 \
+	Once this has been done, the 
+\f1\i exports
+\f0\i0  of the module can be imported to another folder via the function 
+\f1\i require
+\f0\i0 , which takes the string of the desired module\'92s address as its argument.\
+\
+	
+\f1\i //node_projects/app.js\
+	const mySalutations = require(\'91./salutations.js\'92);\
+	console.log(mySalutations.sayHello());\
+	\cf0 \cb1 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 ___\
+	node_project$ node app.js\
+	\cf6 \'92Hello!\'92\cf0 \
+
+\f0\i0 \
+	Importing any module will execute any console commands in that file.\
+\
+	
+\f1\i //node_project/salutations.js\
+	console.log(\'93Foo\'94);\
+	//node_project/app.js\
+	require(\'91./salutations.js\'92);\
+	\cf6 \'92Foo\'92\
+
+\f0\i0 \cf2 \
+
+\f1\i \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \
+		}

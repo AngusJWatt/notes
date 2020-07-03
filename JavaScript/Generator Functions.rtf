@@ -1,0 +1,163 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Oblique;}
+{\colortbl;\red255\green255\blue255;\red127\green127\blue127;\red0\green0\blue0;\red127\green127\blue127;
+}
+{\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c0;\cssrgb\c57046\c57047\c57046;
+}
+\paperw11900\paperh16840\vieww12000\viewh15840\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 Description\
+\ulnone \
+	A generator is declared with the keyword 
+\f1\i function*
+\f0\i0 . In behaviour, it is like a function that can be exited and reentered, with the variable bindings (its context) preserved. When the generator is called, an iterator is returned. This iterator is in a suspended state until it reaches the point where it can give back no values, at which point it is closed.\
+\
+\ul Iterators\
+\ulnone \
+	An iterator is an object that obeys the iterable protocol. All iterators must have a zero-argument method 
+\f1\i next
+\f0\i0  which returns an object with at least two properties: the 
+\f1\i done
+\f0\i0  boolean, which returns 
+\f1\i true
+\f0\i0  only when the iterator is past the end of its iterated sequence; and a 
+\f1\i value
+\f0\i0  of the sequence, which is either omitted or 
+\f1\i undefined
+\f0\i0  at the end of the iterated sequence.\
+\
+\ul Defining A Generator\
+\ulnone \
+	Consider a generator that gives 0, then 1, then nothing further. This would imply that the code within the generator loops through the integers less than 2, giving the variable, then incrementing it by 1.\
+\
+	
+\f1\i const generator = function*() \{\
+		let i =0;\
+		while (i < 2) \{\
+			yield i;\
+			i += 1;\
+		\}\
+	\};\
+
+\f0\i0 \
+	Generators require the keyword 
+\f1\i yield
+\f0\i0 . Unlike the keyword 
+\f1\i return
+\f0\i0 , 
+\f1\i yield
+\f0\i0  gives the value of the variable back to the user without terminating the function, meaning that the variable binding is returned.\
+	The iterator is then assigned by invoking the generator.\
+\
+	
+\f1\i const iterator = generator();\
+
+\f0\i0 \
+	Generators can also be be declared via a generator statement.\
+\
+	function* generator \{\
+		
+\f1\i let i =0;\
+		while (i < 2) \{\
+			yield i;\
+			i += 1;\
+		\}\
+	\};\
+
+\f0\i0 	l
+\f1\i et iterator = generator();
+\f0\i0 \
+\
+	Iterators can be directly assigned via an IIFE.\
+	\
+	
+\f1\i const iterator = (function*() \{\
+		let i =0;\
+		while (i < 2) \{\
+			yield i;\
+			i += 1;\
+		\}\
+	\})();
+\f0\i0 \
+	\
+	Since it obeys the iterable protocol, the iterator will have a 
+\f1\i next
+\f0\i0  method.\
+\
+	
+\f1\i console.log(iterator.next(), iterator.next(), iterator.next());\
+	\cf2 /*\{ value: 0, done: false \}\
+	\{ value: 1, done: false \}\
+	\{ value: undefined, done: true \}*/\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\i0 \cf3 \
+	The iterator will keep returning the same termination object if 
+\f1\i next
+\f0\i0  is called subsequently after it has closed.\
+\
+\ul Yield\
+\ulnone \
+	The 
+\f1\i yield
+\f0\i0  does not have to yield the same type of value: since the iterator is held in stasis after it encounters a 
+\f1\i yield
+\f0\i0  and, when invoked with 
+\f1\i next
+\f0\i0 , will return an object with the value in the next 
+\f1\i yield,
+\f0\i0  it can be whatever the developer wishes.\
+\
+	
+\f1\i \cf0 const iterator = (function*() \{\
+		yield \'93Foo\'94;\
+		yield 0;\
+	\})();\
+	console.log(iterator.next(), iterator.next());\
+\cf2 	/*\cf4 \{ value: \'93Foo\'94,  done: false \}\
+	\{ value:1, done: false \}*/\
+
+\f0\i0 \cf3 \
+	The yield value does not need to return anything, and may be used in isolation to indicate a break point within the iterator.\
+\
+	
+\f1\i \cf0 const iterator = (function*() \{\
+		console.log(\'93Foo\'94);\
+		yield;\
+		console.log(\'93Bar\'94);\
+	\})();\
+	iterator.next();\
+	\cf2 /*\'93Foo\'94*/\
+
+\f0\i0 \cf3 \
+	If the yield is prefixed by a command, that command will execute, just as with a function\'92s return statement.\
+\
+	
+\f1\i let iterator = (function*() \{\
+		yield console.log("Foo");\
+	\})();\
+	iterator.next();\
+	\cf2 /*\'94Foo\'94*/\
+
+\f0\i0 \cf3 \
+\ul Yield*\
+\ulnone \
+	The keyword 
+\f1\i yield*
+\f0\i0  is used when a generator wishes to iterate over a different iterator. This means that, when 
+\f1\i next
+\f0\i0  is called, it yields the value of the embedded iterator.\
+\
+	
+\f1\i const iterator0 = (function*() \{\
+		yield "Foo";\
+	\})();\
+	const iterator1 = (function*() \{\
+		yield* iterator0;\
+	\})();\
+	console.log(iterator1.next());\
+	\cf2 /*\{ value: \'93Foo\'94, done: false \}*/\
+
+\f0\i0 \cf3 \
+[[HOW GENERATORS USE THE RUNNING STATE TO AVOID RECURSION]]}

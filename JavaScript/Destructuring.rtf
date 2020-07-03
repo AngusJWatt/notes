@@ -1,0 +1,110 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Oblique;}
+{\colortbl;\red255\green255\blue255;\red127\green127\blue127;\red0\green0\blue0;\red127\green127\blue127;
+\red251\green2\blue7;}
+{\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c0;\cssrgb\c57046\c57047\c57046;
+\cssrgb\c100000\c14913\c0;}
+\paperw11900\paperh16840\vieww12000\viewh15840\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 Destructuring Arrays\
+\ulnone \
+	JavaScript allows for the values in arrays to be passed into variables without needing to explicitly extract the argument.\
+\
+	
+\f1\i const myArray = [\'93Foo\'94, \'93Bar\'94];\
+	const [value0, value1] = myArray;\
+	console.log(value0, value1);\
+\cf2 	/*\'94Foo\'94 \'93Bar\'94*/\
+
+\f0\i0 \cf3 \
+	This can occur even after the definition of the destructuring variables, so long as they are not declared with 
+\f1\i const
+\f0\i0 .\
+\
+	
+\f1\i const myArray = [\'93Foo\'94, \'93Bar\'94];\
+	let value0, value1;\
+	[value0, value1] = myArray;\
+	\cf0 console.log(value0, value1);\
+\cf2 	/*\'94Foo\'94 \'93Bar\'94*/\
+
+\f0\i0 \cf3 \
+	If the number of variables in the destructuring array does not match those of the target array, the variables will be reassigned from the zeroth element until the number of variables runs out.\
+\
+	
+\f1\i const myArray = [\'93Foo\'94, \'93Bar\'94];\
+	let [value0] = myArray;\
+	\cf0 console.log(value0);\
+\cf2 	/*\'94Foo\'94*/\
+
+\f0\i0 \cf3 \
+	If more variables are in the destructuring array than appear in the target array, the remaining variables will not be reassigned.\
+\
+	
+\f1\i const myArray = [\'94Foo\'94];\
+	let [value0, value1] = myArray;\
+	console.log(value0, value1);\
+	\cf2 /*\'94Foo\'94 undefined*/\
+
+\f0\i0 \cf3 \
+	In order to destructure an array out of the default sequence, bare commas may be used in place of those spaces where parameters would otherwise be.\
+\
+	
+\f1\i const myArray = [\'94Foo\'94, \'93Bar\'94];\
+	let [, value] = myArray;\
+	console.log(value);\
+	\cf2 /*\'94Bar\'94*/\
+
+\f0\i0 \cf3 \
+	It is possible to destructure an array using rest parameter notation, and the elements of the array will be fed in the rest array.\
+\
+	
+\f1\i const myArray = [\'93Foo\'94, \'93Bar\'94];\
+	const [value, \'85rest] = myArray;\
+	console.log(rest);\
+	\cf2 /*[\'93Bar\'94]*/\
+
+\f0\i0 \cf3 \
+	If there are insufficient arguments in the target array to feed the rest array, the rest array will remain empty.\
+\
+	
+\f1\i const myArray = [\'93Foo\'94];\
+	const [value, \'85rest] = myArray;\
+	console.log(rest);\
+	\cf2 /*[]*/\
+
+\f0\i0 \cf3 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 \ul Destructuring Objects\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 \ulnone \
+	Destructuring objects works much the same way as with arrays. However, for objects, the variables must be surrounded by curly brackets rather than square brackets.\
+\
+	
+\f1\i let myObject = \{\
+		value: "Foo",\
+		myFunction: function() \{\
+			return "Bar";\
+		\}\
+	\};\
+	let \{value, myFunction\} = myObject;\
+	console.log(value, myFunction());\
+	\cf4 /*\'94Foo\'94 \'93Bar\'94*/
+\f0\i0 \cf3 \ul \
+\ulnone \
+	In order to destructure an object into variables after the variables have been declared, the destructuring expression must be enclosed in round braces.\
+\
+	
+\f1\i \cf3 let value, myFunction;\
+	\{value, myFunction\} = myObject;\
+	\cf5 /*Uncaught SyntaxError: Unexpected token =*/\cf3 \
+	(\{value, myFunction\} = myObject);\
+	console.log(value, myFunction());\
+	\cf2 /*\'94Foo\'94 \'93Bar\'94*/\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\i0 \cf3 \
+	The reason for this is that JavaScript interprets the code between the curly braces not as an object literal but as a code block. Hence, the brackets remove the ambiguity for the compiler.
+\f1\i \cf3 \
+}

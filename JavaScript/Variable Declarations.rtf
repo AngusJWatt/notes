@@ -1,0 +1,239 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Oblique;}
+{\colortbl;\red255\green255\blue255;\red127\green127\blue127;\red251\green2\blue7;\red0\green0\blue0;
+}
+{\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c100000\c14913\c0;\cssrgb\c0\c0\c0;
+}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid301\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid401\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid5}
+{\list\listtemplateid6\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid501\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid6}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}}
+\paperw11900\paperh16840\vieww20320\viewh17980\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 No Declaration\
+\ulnone \
+	The behaviour of a variable without a declaration depends on whether or not JavaScript is running in strict mode or not: if it is in strict mode, it will throw a reference error; if it is not in strict mode, it will make the variable a global variable. When a variable is in global scope, it is accessible from all other scopes.\
+	\
+	
+\f1\i (function()\{\
+		value = "Foo";\
+	\})();\
+	console.log(value);\
+	\cf2 /*\'94Foo\'94*/
+\f0\i0 \cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\i \cf0 \ul const
+\f0\i0  Declaration\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ulnone \
+	In JavaScript, a constant is a  whose reference is a constant, and is declared with the keyword 
+\f1\i const
+\f0\i0 .\
+	Constants need to be initialised upon declaration.\
+\
+	
+\f1\i const val;\
+	\cf3 /*Uncaught SyntaxError: Missing initializer in const declaration*/
+\f0\i0 \cf0 \
+\
+	If a primitive value is declared with 
+\f1\i const
+\f0\i0 , the value is effectively set, as its reference will always point to the same primitive value.\
+\
+	
+\f1\i const value = \'93Foo\'94;\
+	value = \'93Bar\'94;\
+	\cf3 /*Uncaught TypeError: Assignment to constant variable*/
+\f0\i0 \cf0 \
+\
+	If an object is declared with 
+\f1\i const
+\f0\i0 , it is not immutable as, even though the value of the object\'92s reference is fixed, the contents of that object are not.\
+\
+	
+\f1\i const myObject = \{\};\
+	myObject.value = "Foo";\
+	console.log(myObject.value);\
+\cf2 	/*\'94Foo\'94*/
+\f0\i0 \cf2 \
+\cf0 	\
+	If an array is declared with 
+\f1\i const
+\f0\i0 , the reference to the array is constant, but the array itself is not immutable.\
+\
+	
+\f1\i const myArray = ["Foo", "Bar"];\
+	myArray.pop();\
+	console.log(myArray);\
+\cf2 	/*[\'93Foo\'94]*/
+\f0\i0 \cf0 \
+\
+	[IF A FUNCTION IS DECLARED WITH CONST, CAN IT BE ALTERED? CAN FUNCTIONS BE ALTERED AT ALL?]\
+\
+	If a variable is declared with 
+\f1\i const
+\f0\i0 , it is still hoisted to the top of its scope, as all variables are, but it is not initialised until its declaration. Hence, any attempt to access its value before its declaration will throw an error. It has function and block scope, but will not automatically be assigned window scope.\
+	\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0\cf0 {\listtext	\uc0\u8226 	}	Window Scope\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+	
+\f1\i const value = \'93Foo\'94;\
+	console.log(this.value);\
+	\cf2 /*undefined*/\
+	\cf4 this.newValue = value;\
+	console.log(this.newValue);\
+	\cf2 /*\'94Foo\'94*/\cf0 \
+\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls2\ilvl0
+\f0\i0 \cf0 {\listtext	\uc0\u8226 	}Block Scope\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+	
+\f1\i if (true) \{\
+		const value = \'93Foo\'94;\
+	\}\
+	console.log(value);\
+	\cf3 /*Uncaught ReferenceError: Cannot access 'value' before initialization*/\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls3\ilvl0
+\f0\i0 \cf0 {\listtext	\uc0\u8226 	}Function Scope\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\i \cf0 \
+	const myFunction = function() \{\
+		const value = \'93Foo\'94;\
+	\}\
+	console.log(value);\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 	\cf3 /*Uncaught ReferenceError: value is not defined*/
+\f0\i0 \cf0 \
+	\
+	If a variable is declared with 
+\f1\i const
+\f0\i0 , it cannot be redefined, even if the variable is declared before the 
+\f1\i const
+\f0\i0  declaration.\
+	\
+	
+\f1\i var value = \'93Foo\'94;\
+	const value = \'93Bar\'94;\
+	\cf3 /*Uncaught SyntaxError: Identifier 'value' has already been declared*/
+\f0\i0 \cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\i \cf0 \ul let
+\f0\i0  Declaration\ulnone \
+\
+	The declaration 
+\f1\i let
+\f0\i0  behaves very much like 
+\f1\i const
+\f0\i0 . However, a variable declared with 
+\f1\i let
+\f0\i0  does not need to be initialised upon declaration.\
+\
+	
+\f1\i let value\
+	value = \'93Foo\'94;\
+	console.log(\'93value\'94);\
+	\cf2 /*\'94Foo\'94*/
+\f0\i0 \cf0 \
+\
+	Furthermore, any variable declared with 
+\f1\i let
+\f0\i0  will not be assigned a constant reference, and hence variables with a primitive value may be redefined.\
+\
+	
+\f1\i let value = \'93Foo\'94;\
+	value = \'93Bar\'94;\
+	console.log(value);\
+	\cf3 /*\'94Bar\'94*/
+\f0\i0 \cf0 \
+
+\f1\i \ul \
+var
+\f0\i0  Declaration
+\f1\i \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\i0 \cf0 \ulnone \
+	If a variable is declared with 
+\f1\i var
+\f0\i0 , it is hoisted to the top of its scope, and its value is initialised to 
+\f1\i undefined
+\f0\i0 . Any variable declared with 
+\f1\i var
+\f0\i0  has function scope, but does not have block scope. It has window scope when declared globally.\
+\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls4\ilvl0\cf0 {\listtext	\uc0\u8226 	}Window Scope:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+	
+\f1\i var value = \'93Foo\'94;\
+	console.log(this.value);\
+	\cf2 /*\'94Foo\'94*/
+\f0\i0 \cf0 \
+\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls5\ilvl0\cf0 {\listtext	\uc0\u8226 	}Block Scope:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 	\
+
+\f1\i 	if (true) \{\
+		var value1 = \'93Foo\'94;\
+	\}\
+	console.log(value1);\
+	\cf2 /*\'94Foo\'94*/
+\f0\i0 \cf0 \
+
+\f1\i 	if (false) \{\
+		var value2 = \'93Bar\'94;\
+	\}\
+	console.log(value2);\
+	\cf2 /*undefined*/
+\f0\i0 \cf0 \
+\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls6\ilvl0\cf0 {\listtext	\uc0\u8226 	}Function Scope:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 	
+\f1\i \
+	const myFunction = function()\{\
+		var value = \'93Foo\'94;\
+	\}\
+	console.log(value);\
+	\cf3 /*Uncaught ReferenceError: value is not defined*/
+\f0\i0 \cf0 \
+\
+	A variable declared with 
+\f1\i var
+\f0\i0  may be declared multiple times without throwing an error.\
+\
+	
+\f1\i var value = \'93Foo\'94;\
+	var value = \'93Bar\'94;\
+	console.log(value);\
+	\cf2 /*\'94Bar\'94*/
+\f0\i0 \cf0 \
+\ul \
+Multiple Declarations\
+\ulnone \
+	Multiple variables can be declared through the use of a single declaration.\
+	\
+	
+\f1\i const value1=\'93Foo\'94, value2 = \'93Bar\'94;\
+	console.log(value1, value2);\
+	\cf2 /*\'94Foo\'94 \'93Bar\'94*/}

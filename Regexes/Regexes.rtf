@@ -1,0 +1,52 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\vieww26080\viewh17820\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 Introduction\
+\ulnone \
+	Regular expressions (regexes) are a formal language used for matching, searching for, and replacing text. A regex is delimited by two forward slashes.\
+\
+\ul Literal Characters\
+\ulnone \
+	The simplest form of regex is matches of literal characters. This take a string of characters, and matches instances of that string. They are delimited by forward slashes. For example, /Hello/ matches the string \'93Hello\'94 in the text \'93Hello world\'94. However, regexes are case-sensitive, so it would not match any string in \'93hello world\'94. Regexes are agnostic about if they match a word or a string within a word unless specified. For example, /ox/ will match the string \'93ox\'94 in the text \'93foxes\'94. \
+\
+\ul Modes\
+\ulnone \
+	There are several modes that are used with regexes.\
+	The default mode matches only the first instance of a regex in the text. For example, /Hello/ will match the first \'93Hello\'94 in \'93Hello Hello\'94.\
+	The global mode g matches all instances of a regex in the text. For example, /Hello/g will match both instances of \'93Hello\'94 in \'93Hello Hello\'94.\
+	The case-insensitive mode i matches all instances of a regex in the text regardless of capitalisation. For example, /hello/i will match \'93Hello\'94.\
+	Multiline mode matches a regex over multiple lines of text.  For example, /Hello/m will match \'93Hell\
+o\'94.\
+\
+\ul Metacharacters\
+\ulnone \
+	The forward-slash delimiter marks the beginning and the end of a regex (except for adding modes, which are appended to the last delimiter).\
+	The full-stop wildcard metacharacter matches any character except for a newline. For example, /c.t/ will match the strings \'93cat\'94 or \'93cot\'94. However, it will not match \'93coat\'94, as the wildcard only matches one character.\
+	The backwards-slash escape metacharacter is used to \'93escape\'94 metacharacters,  so that they are treated as literal characters instead. For example, /1.0/ would match the \'931.0\'94, but it would also match the strings \'93100\'94 or \'931-0\'94, as the . represents the wildcard. To search for \'931.0\'94, the regex must escape the full stop, i.e. /1\\.0/. It also escapes some literal characters, which transforms them into metacharacters.\
+	The square brackets mark the respective beginning and end of a character set.\
+	\
+	\
+	\\n matches the newline character (the character representing moving down from one line to the next).\
+	\\r matches the carriage return character (the character representing moving all the way to the left of the line).\
+	\\t matches the tab character.\
+\
+\ul Character Sets\
+\ulnone \
+	Character sets are used to match a single character which is defined as being an element of a specified set. The are delimited by a pair of square brackets. For example, /[aeiou]/ will match the first vowel in a text, and /[aeiou]/g will match every vowel. These character sets can be combined with literal characters to search for instances where there can be variant spelling: for example, /gr[ae]y/ will match both \'93gray\'94 and \'93grey\'94 in a text. However, whilst /c[oa]t/ will match either \'93cat\'94 or \'93cot\'94, it will not match \'93coat\'94, as the character set only matches a single character.\
+	The character set is agnostic to the order of elements within that set. For example, /gr[ae]y/ and /gr[ea]y/ perform exactly the same matches.\
+	To be able to search within a range of characters, the literal character dash becomes a metacharacter within that character set, symbolising a range. For example, /[0-9]/ is a shorthand regex for matching a numerical character. Ranges can be combined with literal characters, so /[0-9\\-]/ will match any numeral and a dash, and also combined with other ranges, so /[A-Za-z]/ will match any alphabetical character.\
+	The range must be specified in Unicode order from smallest to greatest, otherwise it will throw an error: i.e. /[a-z]/ is a valid range, but /[z-a]/ is not.\
+	The dash represents a range only when it is placed between two characters. If it appears at the start or end of a list of characters in a set, it is treated as a literal dash character. For example, /[a-z]/ matched any alphabetical character, whilst /[az-]/ matches only the characters \'93a\'94, \'93z\'94, and \'93-\'93.\
+\
+\ul Negative Character Sets\ulnone \
+\
+	Negative character sets are character sets which match on any single character not included in the set. These are denoted by the presence of a caret character immediately proceeding the opening bracket. For example, /h[^a]t/ will not match \'93hat\'94 but will match \'91hit\'92, \'93hot\'94, and \'93hut\'94. Similarly, the negative character sets can match a character that does not appear in a range. For example, /[^A-Za-z]/ will match any non-alphabetical character.\
+	Note that the caret symbol only creates a negative character set when it is the first character in the set. If it appears afterwards, then it will be matched as a literal character. For example, /2[^1]6/ will match any three-character string starting with \'932\'94 and ending in \'936\'94 so long as the middle character is not \'931\'94, whilst /2[1^]6/ will only match either \'93216\'94 or \'932^6\'94. \
+\
+\ul Metacharacters In Character Sets\
+\ulnone \
+	In a character sets, most of the metacharacters are treated as escaped by default. The only exceptions are the closing square bracket, the caret, the dash, and the backslash. The closing square bracket is required to close a set; the caret is used to signify a negative character set when placed at the start of the set; the dash represents a range when placed between two characters in Unicode order; the backslash escapes any of these excluded metacharacters to make them literal.}

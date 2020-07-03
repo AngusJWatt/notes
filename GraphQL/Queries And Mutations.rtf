@@ -1,0 +1,318 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Oblique;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red127\green127\blue127;\red127\green127\blue127;
+\red251\green2\blue7;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c57046\c57047\c57046;\cssrgb\c57046\c57047\c57046;
+\cssrgb\c100000\c14913\c0;}
+\paperw11900\paperh16840\vieww11820\viewh15840\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 Fields\ulnone \
+\
+	The essential purpose of GraphQL is to operate on (i.e. to retrieve or mutate) the values of fields of objects.\
+\
+	
+\f1\i \cf2 query swapiQuery0 \{\
+		allFilms \{\
+			totalCount\
+		\}\
+	\}\
+\
+	\cf3 \{\
+		\'93data\'94: \{\
+			\'93allFilms\'94: \{\
+				\'93totalCount\'94: 7\
+			\}\
+		\}\
+	\}\cf4 \
+
+\f0\i0 \cf2 \
+	The format of the object retrieved has the same structure as the request. In this instance, the object \'93allFilms\'94 has a field \'93totalCount\'94 with an integer value of 7. \
+\
+	
+\f1\i query swapiQuery1 \{\
+		allFlims \{\
+			films \{\
+				title\
+			\}\
+		\}\
+	\}\
+\
+	\cf4 \{\
+		\'93data\'94: \{\
+			\'93allFilms\'94 \{\
+				\'93films\'94: [\
+					\{\
+						\'93title\'94: \'93A New Hope\'94\
+					\},\
+					\{\
+						\'93title\'94: \'93The Empire Strikes Back\'94\
+					\},\
+					\{\
+						\'93title\'94: \'93Return of the Jedi\'94\
+					\},\
+					\{\
+						\'93title\'94: \'93The Phantom Menace\'94\
+					\},\
+					\{\
+						\'93title\'94: \'93Attack of the Clones\'94\
+					\},\
+					\{\
+						\'93title\'94: \'93Revenge of the Sith\'94\
+					\},\
+					\{\
+						\'93title\'94: \'93The Force Awakens\'94\
+					\}\
+				]\
+			\}\
+		\}\
+	\}\
+
+\f0\i0 \cf2 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \ul Types\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \ulnone 	The GraphQL returned values have types. Objects must be given a user-defined type, which allows its fields to be queried.\
+	Every query or mutation must end with on primitive value, which can be either an integer, a float, a string, a boolean, or an ID.\
+	An exclamation mark after a type declaration indicates that it is non-nullable.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \ul Arguments\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \ulnone \
+	In such cases where the returned value is an array of indexed values, the relevant items can be selected for via an argument.\
+\
+	
+\f1\i query swapiQuery2 \{\
+		film(filmID: 1) \{\
+			title\
+			characterConnection \{\
+				totalCount\
+			\}\
+		\}\
+	\}\
+	\
+	\cf4 \{\
+		\'93data\'94: \{\
+			\'93film\'94: \{\
+				\'93title\'94: \'93A New Hope\'94\
+				\'93characterConnection\'94: \{\
+					\'93totalCount\'94: 18\
+				\}\
+			\}\
+		\}\
+	\}\
+
+\f0\i0 \cf2 \
+	In such instances where a default value for a field is provided, the argument is not necessary.\
+	It is also possible to use arguments to get variants of data where such variants have been specified.\cf2 \
+\cf2 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \ul Aliases
+\f1\i \cf4 \ulnone \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\i0 \cf2 \
+	In the returned object, the names of the fields are the same as those in the query. This would cause problems in such cases where two query fields share a field name.\
+\
+	query swapiQuery3 \{\
+		film(filmID: 1) \{\
+			title\
+		\}\
+		film(filmID: 2) \{\
+			title\
+		\}\
+	\}\
+\
+	\cf4 \{\
+		\'93data\'94 \{\
+			\cf5 \'93film\'94\cf4 : \{\
+				\'93title\'94: \'93A New Hope\'94\
+			\},\
+			\cf5 \'93film\'94\cf4 : \{\
+				\'93title\'94: \'93The Empire Strikes Back\'94\
+			\}\
+		\}\
+	\}\
+\cf2 \
+	In such cases, the retrieved data would be impossible to parse, and hence this is forbidden by GraphQL. In order to get around this, queries can be given aliases.\
+\
+	query swapiQuery4 \{\
+		firstFilm: film\cf2 (filmID: 1) \{\
+			title\
+		\}\cf2 \
+		secondFilm: film\cf2 (filmID: 2) \{\
+			title\
+		\}\cf2 \
+	\}\
+\
+	\cf4 \{\
+		\'93data\'94 \{\
+			\'93firstFilm\'94: \{\
+				\'93title\'94: \'93A New Hope\'94\
+			\},\
+			\'93secondFilm\'94: \{\
+				\'93title\'94: \'93The Empire Strikes Back\'94\
+			\}\
+		\}\
+	\}\cf4 \
+\cf2 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \ul \ulc2 Fragments\cf4 \ulnone \
+\cf2 \
+	Fragments are a way of making side-by-side queries without having to repeat the code over, helping to reduce unnecessary copying. It employs the three-dot spreading notation.\
+\
+	
+\f1\i fragment planetData on Planet \{\
+		name\
+		noOfMoons\
+	\}\
+	\
+	query SpaceQuery5 \{\
+		planetEarth: planet(name: \'93Earth\'94) \{\
+			\'85planetData\
+		\}\
+		planetMars: planet(name: \'93Mars\'94) \{\
+			\'85planetData\
+		\}\
+	\}\
+	\
+	\cf4 \{\
+		\'93data\'94: \{\
+			\'93planetEarth\'94: \{\
+				\'93name\'94: \'93Earth\'94,\
+				\'93noOfMoons\'94: 1\
+			\},\
+			\{\
+				\'93name\'94: \'93Mars\'94,\
+				\'93noOfMoons\'94: 2\
+			\}\
+		\}\
+	\}
+\f0\i0 \cf2 \
+\
+\ul Inline Fragments\
+\ulnone \
+	Inline fragments are useful when dealing with objects that can be represented by one of multiple types. They have the same notation as fragments after the name declaration, spread with the three-dot notation.\
+\
+	
+\f1\i query spaceQuery6 \{\
+		homeStar \{\
+			planets \{\
+				\'85 on solidPlanet \{\
+					name\
+					radius\
+				\},\
+				\'85 on nonSolidPlanet \{\
+					name\
+					outerRadius\
+				\}\
+			\}\
+		\}\
+	\}\
+\
+	\cf4 \{\
+		\'93data\'94: \{\
+			\'93homeStar\'94: \{\
+				\'93planets\'94: [\
+					\{\
+						\'93name\'94: \'93Mercury\'94,\
+						\'93radius\'94: 2440\
+					\},\
+					\{\
+						\'93name\'94: \'93Venus\'94,\
+						\'93radius\'94: 6052\
+					\},\
+					\{\
+						\'93name\'94: \'93Earth\'94,\
+						\'93radius\'94: 6371\
+					\},\
+					\{\
+						\'93name\'94: \'93Mars\'94,\
+						\'93radius\'94, 3390\
+					\},\
+					\{\
+						\'93name\'94: \'93Jupiter\'94,\
+						\'93outerRadius\'94: 69911\
+					\},\
+					\{\
+						\'93name\'94: \'93Saturn\'94,\
+						\'93outerRadius\'94: 58232\
+					\},\
+					\{\
+						\'93name\'94: \'93Uranus\'94,\
+						\'93outerRadius\'94: 25362\
+					\},\
+					\{\
+						\'93name\'94: \'93Neptune\'94,\
+						\'93outerRadius\'94: 24622\
+					\}\
+				]\
+			\}\
+		\}\
+	\}\
+
+\f0\i0 \cf2 \
+\
+\ul Variables\
+\ulnone \
+	GraphQL supports variables to be used in the code. Variables are denoted with a $. In order to use it in a query or mutation, it must be specified in the \'93Query Variables\'94 section as a JSON object, then declared along with its type in the declaration of that query or mutation.\
+\
+	
+\f1\i VARIABLES\
+\
+	\{\
+		\'93neighbourPlanet\'94: \'93Mars\'94\
+	\}\
+\
+	___\
+\
+	query spaceQuery7($neighbourPlanet: String!) \{\
+		planet(name: $neighbourPlanet) \{\
+			name\
+			radius(units: KM) \
+		\}\
+	\}\
+\
+	\cf4 \{\
+		\'93data\'94: \{\
+			\'93planet\'94: \{\
+				\'93name\'94: \'93Mars\'94\
+				\'93radius\'94: 3390\
+			\}\
+		\}\
+	\}\cf2 \
+
+\f0\i0 \
+\ul Variables Within Fragments\
+\ulnone \
+	It is possible to use variables within fragments, then specify the variable within the query that relies upon that fragment.\
+\
+	
+\f1\i fragment planetData on SolarSystem \{\
+		planet(name: $planetName) \{\
+			name\
+			radius\
+		\}\
+	\}\
+\
+	query spaceQuery8($planetName: String = \'93Mars\'94) \{\
+		\'85planetData\
+	\}\
+\
+	\cf3 \{\
+		\'93data\'94: \{\
+			\'93planet\'94: \{\
+				\'93name\'94: \'93Mars\'94\
+				\'93radius\'94: 3390\
+			\}\
+		\}\
+	\}
+\f0\i0 \cf2 \
+\
+\ul Directives\
+\ulnone \
+\ul Mutations\
+\ulnone \
+	Queries are useful for retrieving data, but are not used to mutate data. To achieve that, mutations are employed. Every mutation has both input, which are the changes that are fed to the server, and output, which are the results returned by the server on the completion of the mutation.}

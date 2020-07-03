@@ -1,0 +1,95 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Oblique;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\vieww12000\viewh15840\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 Syntax\ulnone \
+\
+	A CSS ruleset consists of a selector, followed by a declaration block which consists of \'93property: value\'94 pairs separated by semicolons. This will apply the appropriate styles to all elements of the same type as the selector.\
+	If the type of the element is a standard HTML element, the format of the selector is just the same as the that of the element.\
+\
+	
+\f1\i h1 \{\
+		color: blue;\
+		font-size: 12px\
+	\}\
+
+\f0\i0 \
+	If the type of the element is an id, the selector is prefixed by a number sign.\
+\
+	
+\f1\i #myElement \{\
+		text-align: center;\
+	\}
+\f0\i0 \
+\
+	If the type of the element is a class, the selector is prefixed by a dot.\
+\
+	
+\f1\i .myClass \{\
+		text-align: center;\
+	\}
+\f0\i0 \
+\
+	It is possible to stack specified elements so that the same rules are applied to all of them.\
+\
+	
+\f1\i h1, .myClass \{\
+		text-align: center;\
+	\}
+\f0\i0 \
+\
+\ul Descendant Selectors\
+\ulnone \
+	Descendant selectors allow styling to be applied to elements which are within other elements. They are specified in descending order, with the successive elements separated by single spaces.\
+\
+	
+\f1\i div p \{\
+		text-align: center;\
+	\}\
+
+\f0\i0 \
+	This would apply even if the elements are not immediate descendants.\
+\
+	
+\f1\i <div>\
+		<h1>\
+			<p>This text will be centred.</p>\
+		</h1>\
+	</div>\
+
+\f0\i0 \
+\ul Child Selector\ulnone \
+\
+	In order to ensure that styling is applied only to elements which are immediate successors, the child selector is employed. This is specified by separating the required elements with a greater-than symbol.\
+\
+	
+\f1\i div > p \{\
+		text-align: center;\
+	\}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\i0 \cf0 \
+	This would apply even if the elements are not immediate descendants.\
+\
+	
+\f1\i <div>\
+		<p>This text will be centred.</p>\
+		<h1>\
+			<p>This text will not be centred.</p>\
+		</h1>\
+	</div>\
+
+\f0\i0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ul \ulc0 Attribute Selector\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ulnone \
+	To select only elements with a specific attribute, the attribute selector is required. This is specified by enclosing the attribute name, and what value it is equal to, in square brackets.\
+\
+	
+\f1\i img[alt=\'93My Image\'94] \{\
+		padding = 10em;\
+	\}}
