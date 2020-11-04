@@ -1,0 +1,32 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;\red0\green0\blue0;
+\red0\green0\blue0;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c0\c1\c1;\cssrgb\c100000\c100000\c99985\c0;\cssrgb\c0\c0\c0;
+\cssrgb\c0\c1\c1;\cssrgb\c100000\c100000\c99971\c0;\cssrgb\c0\c1\c1;\cssrgb\c100000\c100000\c99971\c0;}
+\paperw11900\paperh16840\vieww13080\viewh10600\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 \ul \ulc4 \CocoaLigature0 HTTP\
+\cf5 \cb6 \ulnone \
+	HTTP (HyperText Transfer Protocol) is a protocol for sending requests and receiving content between browsers and servers. It is a human-readable language with a few request methods (GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE, and PATCH).\
+	For example, clicking a link will make a request to GET pagedata, and hitting the submit button at the end of a form will make a request to POST that data to the database on the server.\
+	Each request made via HTTP is paired with a response to that request. The response carries a response code based on how successful the request attempt was, the data requested if it was successful, and other information.\
+	HTTP messages come in request-response pairs, where clients make requests for data and then servers return a response to that request.\
+\
+\ul Sessions\ulnone \
+\
+	Each request is \'91stateless\'92, i.e. all information for the request is contained within the request body, and does not reference any other object such as other requests or memory.\
+	In order to retain information on a user\'92s session, session information is sent and received in the form of cookies which are included in the request\'92s header.\
+\
+\ul Headers\
+\ulnone \
+	Every HTTP request and response has a header. The header of a request is used to store metadata of the request, including such things as the cookies, details on the client that sent the request, the server configuration, time and date of request, statements of how long the payload data should be stored, the format of the payload data, and so on.\
+	\cf7 \cb8 The request header must also contain one HTTP method which explains the action the sender wants the receiver to act on.\
+	Each response header has a status response code, which is an integer from 100 to 599 which describes what type of response was sent from the server to the client. These are broken down as informational responses (100-199), successful responses (200-299), redirects (300-399), client errors (400-499), and server errors (500-599).\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf7 \ul \ulc7 Methods\ulnone \
+\
+	The most commonly used HTTP method is the GET method for retrieving resources. If the resource is public, the GET method only needs the method and the URL in order to work. If the resource sits behind a security wall, the request may need an authorisation header which contains an encrypted username and password, and maybe a cookie containing an authorisation token. If the get request is successful, a status response code of 200 is returned in the response, along with the requested data. If the request is unsuccessful, the response may contain a 403 code (user does not have sufficient permissions for the resource), a 404 code (resource not found), or a 405 code (resource blocked by the server).\
+	}

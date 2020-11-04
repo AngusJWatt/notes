@@ -1,0 +1,20 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\vieww12000\viewh15840\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 Introduction\
+\ulnone \
+	The Universal Resource Locator (URL) is a string of characters which define where a data resource is located on the web, and the protocol for how that data is retrieved. Take, as an example, the URL \'93https://www.foo.com/bar\'94. For this example, the protocol for how the data is retrieved is HTTPS, and this is seen in the first part of the URL called the \'93protocol declaration\'94. Everything after that, \'93www.foo.com/bar\'94, is the Universal Resource Name (URN) for that resource. \
+	Altogether, protocol declarations, URNs, and their combination as URLs form a class of resource identifiers called Universal Resource Identifiers (URI).\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ul \ulc0 Ports\ulnone \
+\
+	Ports are communication endpoints between a computer and a network. For a server delivering content to the internet, the default ports are 80 for HTTP, and 443 for HTTPS, and are not including in the string of the URL if used. If other ports are used, they are specified in the URL, e.g. \'93https://www.foo.com:2000/bar\'94.\
+\
+\ul Resource Path\ulnone \
+\
+	After the ports comes the resource path, which reflects the directory structure of the resource from the server. The default name for the file is \'93index.html\'94 or \'93default.html\'94, and hence \'93foo.com/bar\'94 indicates that the resource is found by going to the root of the project, going to a directory named \'93bar\'94, and then found in a file called \'93index.html\'94 or \'93default.html\'94. If the resource is in a file without a default name, that will be reflected in the URL, e.g. \'93foo.com/bar/baz.html\'94.}
